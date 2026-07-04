@@ -32,9 +32,9 @@ const ChatSidebar = ({ userEmail }) => {
 
   return (
     <div className="flex flex-col h-full w-64 border-r border-border bg-sidebar">
-      <div className="flex items-center justify-between border-b border-sidebar-border px-4 py-4">
+      <div className="flex items-center justify-center border-b border-sidebar-border px-4 py-2">
         <div className="flex items-center gap-2">
-          <Image src={"/logo.svg"} alt="Logo" width={100} height={100} />
+          <Image src={"/logo.png"} alt="Logo" width={150} height={100} />
         </div>
       </div>
 
@@ -59,7 +59,7 @@ const ChatSidebar = ({ userEmail }) => {
         </div>
       </div>
 
-      <div className="p-4 flex items-center gap-3 border-t border-sidebar-border">
+      <div className="p-4 mt-auto flex items-center gap-3 border-t border-sidebar-border">
         <UserButton />
         <span className="flex-1 text-sm text-sidebar-foreground truncate">
           {userEmail}
