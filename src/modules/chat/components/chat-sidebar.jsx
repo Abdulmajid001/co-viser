@@ -81,6 +81,12 @@ const ChatSidebar = ({ userEmail, chats }) => {
     setSearchQuery(e.target.value);
   };
 
+  const onPin = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    alert("Not implemented yet !");
+  };
+
   const onDelete = (e, chatId) => {
     e.preventDefault();
     e.stopPropagation();
@@ -120,7 +126,7 @@ const ChatSidebar = ({ userEmail, chats }) => {
                 <DropdownMenuGroup>
                   <DropdownMenuItem
                     className="flex flex-row gap-2 cursor-pointer"
-                    // onClick={(e) => onPin(e, chat.id)}
+                    onClick={(e) => onPin(e, chat.id)}
                   >
                     <Pin className="h-4 w-4 text-primary" />
                     <span className="text-primary">Pin</span>
@@ -155,6 +161,18 @@ const ChatSidebar = ({ userEmail, chats }) => {
         </div>
       </div>
 
+      <div className="px-4 mt-2">
+        <div className="relative">
+          <SearchIcon className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            placeholder="Look for your chat..."
+            className={"pl-9 bg-sidebar-accent border-sidebar-b pr-8"}
+            value={searchQuery}
+            onChange={handleSearchChange}
+          />
+        </div>
+      </div>
+
       <div className="p-4">
         <Link href={"/"}>
           <Button className={"w-full"}>
@@ -162,18 +180,6 @@ const ChatSidebar = ({ userEmail, chats }) => {
             New Chat
           </Button>
         </Link>
-      </div>
-
-      <div className="px-4 pb-4">
-        <div className="relative">
-          <SearchIcon className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            placeholder="Search your chat..."
-            className={"pl-9 bg-sidebar-accent border-sidebar-b pr-8"}
-            value={searchQuery}
-            onChange={handleSearchChange}
-          />
-        </div>
       </div>
 
       {/* Filtered Chats */}

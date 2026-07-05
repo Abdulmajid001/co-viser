@@ -1,47 +1,63 @@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Code, GraduationCap, Newspaper, Sparkles } from "lucide-react";
+import {
+  BookOpen,
+  Code,
+  MessageCircle,
+  Newspaper,
+  Sparkles,
+} from "lucide-react";
 import React, { useState } from "react";
 
 const CHAT_TAB_MESSAGE = [
   {
-    tabName: "Create",
-    icon: <Sparkles className="h-4 w-4" />,
+    tabName: "Ask",
+    icon: <MessageCircle className="h-4 w-4" />,
     messages: [
-      "Write a short story about a robot discovering emotions",
-      "Help me outline a sci-fi novel set in a post-apocalyptic world",
-      "Create a character profile for a complex villain with sympathetic motives",
-      "Give me 5 creative writing prompts for flash fiction",
+      "What are the biggest benefits of remote work for employees?",
+      "Explain quantum computing in simple terms with real-world examples",
+      "How can I improve my productivity while working or studying?",
+      "What are the latest AI trends that will shape the future?",
     ],
   },
   {
-    tabName: "Explore",
-    icon: <Newspaper className="h-4 w-4" />,
+    tabName: "Create",
+    icon: <Sparkles className="h-4 w-4" />,
     messages: [
-      "Good books for fans of Rick Rubin",
-      "Countries ranked by number of corgis",
-      "Most successful companies in the world",
-      "How much does Claude cost?",
+      "Write a compelling product description for a new smartwatch",
+      "Generate 10 creative startup name ideas for an AI company",
+      "Write a motivational speech about overcoming challenges",
+      "Create a balanced weekly study plan for a university student",
     ],
   },
   {
     tabName: "Code",
     icon: <Code className="h-4 w-4" />,
     messages: [
-      "Write code to invert a binary search tree in Python",
-      "What is the difference between Promise.all and Promise.allSettled?",
-      "Explain React's useEffect cleanup function",
-      "Best practices for error handling in async/await",
+      "Write a REST API in Next.js with CRUD endpoints",
+      "Explain the difference between let, const, and var with examples",
+      "Explain Big O notation using common data structures and algorithms",
+      "How do I implement JWT authentication in a Next.js application?",
     ],
   },
   {
     tabName: "Learn",
-    icon: <GraduationCap className="h-4 w-4" />,
+    icon: <BookOpen className="h-4 w-4" />,
     messages: [
-      "Beginner's guide to TypeScript",
-      "Explain the CAP theorem in distributed systems",
-      "Why is AI so expensive?",
-      "Are black holes real?",
+      "Explain how the stock market works for complete beginners",
+      "What is machine learning and how is it used today?",
+      "Teach me the basics of personal finance and budgeting",
+      "How does blockchain technology work behind the scenes?",
+    ],
+  },
+  {
+    tabName: "Explore",
+    icon: <Newspaper className="h-4 w-4" />,
+    messages: [
+      "What are the best countries to visit in 2026 and why?",
+      "Which programming languages are worth learning this year?",
+      "Which companies are the most valuable in the world today?",
+      "What are the latest trends in artificial intelligence and technology?",
     ],
   },
 ];
@@ -52,10 +68,10 @@ const ChatWelcomeTabs = ({ onMessageSelect }) => {
   return (
     <div className="flex flex-col items-center justify-center px-4">
       <div className="w-full max-w-xl space-y-8">
-        <div className="flex flex-wrap gap-2 lg:gap-6 w-full">
+        <div className="flex flex-wrap gap-1 lg:gap-1 w-full">
           {CHAT_TAB_MESSAGE.map((tab, index) => (
             <Button
-              key={tab.tabName}
+              key={index}
               variant={activeTab === index ? "default" : "secondary"}
               onClick={() => setActiveTab(index)}
               className="w-27.5 justify-center"
@@ -68,11 +84,11 @@ const ChatWelcomeTabs = ({ onMessageSelect }) => {
 
         {/* chat tab messages - only show once a tab is clicked */}
         {activeTab !== null && (
-          <div className="space-y-3 w-full min-h-[240px]">
+          <div className="space-y-3 w-full min-h-60">
             {CHAT_TAB_MESSAGE[activeTab].messages.map((message, index) => (
               <div key={index}>
                 <button
-                  onClick={()=>onMessageSelect(message)}
+                  onClick={() => onMessageSelect(message)}
                   className="w-full text-left text-sm text-muted-foreground hover:text-primary transition-colors duration-300 ease-in-out py-2"
                 >
                   {message}
