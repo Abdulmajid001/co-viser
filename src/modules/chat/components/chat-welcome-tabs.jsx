@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+// import { Separator } from "@/components/ui/separator";
 import {
   BookOpen,
   Code,
@@ -94,7 +95,7 @@ const ChatWelcomeTabs = ({ onMessageSelect }) => {
                   {message}
                 </button>
                 {index < CHAT_TAB_MESSAGE[activeTab].messages.length - 1 && (
-                  <Separator />
+                  <Separator className="h-0.5" />
                 )}
               </div>
             ))}

@@ -156,7 +156,7 @@ const ChatSidebar = ({ userEmail, chats }) => {
   return (
     <div className="flex flex-col h-full w-64 border-r border-border bg-sidebar">
       <div className="flex items-center justify-center px-4 py-0.5">
-        <div className="md:flex items-center gap-2 hidden">
+        <div className="hidden md:flex items-center gap-2">
           <Image src={"/Logo2.png"} alt="Logo" width={150} height={100} />
         </div>
       </div>

@@ -1,6 +1,3 @@
-// import { getAllChats } from "@/modules/chat/actions/action";
-// import { redirect } from "next/navigation";
-
 import { getAllChats } from "@/modules/actions/action";
 import ChatSidebar from "@/modules/chat/components/chat-sidebar";
 import Header from "@/modules/chat/components/header";
@@ -21,7 +18,7 @@ const layout = async ({ children }) => {
         <ChatSidebar userEmail={email} chats={chats} />
       </div>
       <main className="flex-1 overflow-scroll">
-        <Header userEmail={email} chats={chats}  />
+        <Header userEmail={email} chats={chats} />
         {children}
       </main>
     </div>
