@@ -174,9 +174,9 @@ export function ModelSelector({
               <Sparkles className="h-5 w-5" />
               {selectedForDetails?.name}
             </DialogTitle>
-            <DialogDescription>
+            {/* <DialogDescription>
               Detailed information about this AI model
-            </DialogDescription>
+            </DialogDescription> */}
           </DialogHeader>
           <ScrollArea className=" pr-4 h-100">
             {selectedForDetails && (

@@ -9,12 +9,20 @@ import { ModelSelector } from "./model-selector";
 import { useAIModels } from "@/modules/hooks/use-ai-agent";
 import { useCreateChat } from "@/modules/hooks/use-chat";
 import { toast } from "sonner";
-// import { toast } from "sonner";
-// import { createChatWithMessage } from "../actions/action";
+
+const getGreeting = () => {
+  const hour = new Date().getHours();
+
+  if (hour < 12) return "Good morning";
+  if (hour < 17) return "Good afternoon";
+  if (hour < 21) return "Good evening";
+  return "How can I help you";
+};
 
 const ChatMessageForm = ({ initialMessage, onMessageChange, firstName }) => {
   const [selectedModel, setSelectedModel] = useState("");
   const [message, setMessage] = useState("");
+  const [greeting, setGreeting] = useState(getGreeting());
 
   const { mutateAsync, isPending: isChatPending } = useCreateChat();
   const { data: models, isPending: isModelsPending } = useAIModels();
@@ -33,6 +41,15 @@ const ChatMessageForm = ({ initialMessage, onMessageChange, firstName }) => {
     }
   }, [initialMessage, onMessageChange]);
 
+  // Keep greeting fresh if the component stays mounted across a time-of-day boundary
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setGreeting(getGreeting());
+    }, 60 * 1000); // check every minute
+
+    return () => clearInterval(interval);
+  }, []);
+
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
@@ -49,7 +66,7 @@ const ChatMessageForm = ({ initialMessage, onMessageChange, firstName }) => {
   return (
     <div className="w-full mx-auto px-4 pb-2">
       <h1 className="text-4xl font-semibold pb-8 text-center">
-        How can i help you , {firstName}
+        {greeting}, {firstName}
       </h1>
       <form onSubmit={handleSubmit}>
         <div
