@@ -5,11 +5,19 @@ import { useState } from "react";
 
 
 export function QueryProvider({ children }) {
-    const [client] = useState(() => new QueryClient())
+    const [queryClient] = useState(
+      () =>
+        new QueryClient({
+          defaultOptions: {
+            queries: {
+              staleTime: 1000 * 60,
+              refetchOnWindowFocus: false,
+            },
+          },
+        }),
+    );
 
     return (
-        <QueryClientProvider client={client}>
-            {children}
-        </QueryClientProvider>
-    )
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    );
 }

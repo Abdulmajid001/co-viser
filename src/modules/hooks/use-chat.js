@@ -20,7 +20,9 @@ export const useCreateChat = () => {
         // add optimistic ui
         const chat = res.data;
 
-        queryClient.invalidateQueries(["chats"]);
+        queryClient.invalidateQueries({
+          queryKey: ["chats"],
+        });
 
         router.push(`/chat/${chat.id}?autoTrigger=true`);
       }
@@ -38,7 +40,10 @@ export const useDeleteChat = (chatId) => {
   return useMutation({
     mutationFn: () => deleteChat(chatId),
     onSuccess: (data) => {
-      queryClient.invalidateQueries(["chats"]);
+      queryClient.invalidateQueries({
+        queryKey: ["chats"],
+      });
+
       toast.success(data.message);
     },
     onError: (error) => {
