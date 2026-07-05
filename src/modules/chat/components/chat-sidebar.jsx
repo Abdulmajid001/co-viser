@@ -15,13 +15,10 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import DeleteChatModal from "./chat-delete-modal";
-// import DeleteChatModal from "./modal/chat-delete-modal";
 
 const ChatSidebar = ({ userEmail, chats }) => {
   const { activeChatId } = useChatStore();

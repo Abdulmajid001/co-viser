@@ -6,7 +6,7 @@ import { currentUser } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 
 export const createChatWithMessage = async (values) => {
-  console.log("createChatWithMessage called with values:", values);
+  // console.log("createChatWithMessage called with values:", values);
   try {
     const user = await currentUser();
 
@@ -46,7 +46,7 @@ export const createChatWithMessage = async (values) => {
       .select()
       .single();
 
-    if (messageError) throw messageError;
+    if (messageError) throw new Error(messageError.message);
 
     revalidatePath("/");
 
@@ -117,6 +117,7 @@ export const getChatById = async (chatId) => {
     .single();
 
   if (error) throw new Error("Error fetching chat");
+  console.log("Fetched chat:", error);
 
   return {
     success: true,

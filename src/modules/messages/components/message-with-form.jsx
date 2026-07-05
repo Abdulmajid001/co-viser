@@ -26,10 +26,7 @@ import {
   ReasoningTrigger,
 } from "@/components/ai-elements/reasoning";
 import { Spinner } from "@/components/ui/spinner";
-import { useAIModels } from "@/modules/ai-agent/hook/use-ai-agent";
 import { ModelSelector } from "@/modules/chat/components/model-selector";
-import { useGetChatById } from "@/modules/chat/hooks/use-chat";
-import { useChatStore } from "@/modules/chat/store/chat-store";
 import { useChat } from "@ai-sdk/react";
 import { CopyIcon, RotateCcwIcon, StopCircleIcon } from "lucide-react";
 import {
@@ -42,33 +39,11 @@ import {
 } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
+import { useAIModels } from "@/modules/hooks/use-ai-agent";
+import { useGetChatById } from "@/modules/hooks/use-chat";
+import { useChatStore } from "@/modules/store/chat-store";
+import MessageSkeleton from "./message-skeleton";
 
-// ─── Skeleton shown while the DB chat is loading ─────────────────────────────
-
-function MessageSkeleton() {
-  return (
-    <div className="flex flex-col gap-6 p-4 animate-pulse">
-      {/* Assistant skeleton */}
-      <div className="flex flex-col gap-2 max-w-[80%]">
-        <div className="h-3 w-48 rounded bg-muted" />
-        <div className="h-3 w-72 rounded bg-muted" />
-        <div className="h-3 w-60 rounded bg-muted" />
-      </div>
-      {/* User skeleton */}
-      <div className="flex flex-col gap-2 max-w-[60%] ml-auto">
-        <div className="h-3 w-40 rounded bg-muted" />
-        <div className="h-3 w-52 rounded bg-muted" />
-      </div>
-      {/* Assistant skeleton */}
-      <div className="flex flex-col gap-2 max-w-[80%]">
-        <div className="h-3 w-56 rounded bg-muted" />
-        <div className="h-3 w-80 rounded bg-muted" />
-        <div className="h-3 w-44 rounded bg-muted" />
-        <div className="h-3 w-64 rounded bg-muted" />
-      </div>
-    </div>
-  );
-}
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 
@@ -276,35 +251,32 @@ export default function MessageWithForm({ chatId }) {
 
                         case "text":
                           return (
-                            <Message
-                              from={message.role}
-                              key={`${message.id}-text-${i}`}
-                            >
-                              {/* All messages displayed */}
-                              <MessageContent>
-                                <MessageResponse>{part.text}</MessageResponse>
-                              </MessageContent>
-
+                            <Fragment key={`${message.id}-text-${i}`}>
+                              <Message
+                                from={message.role}
+                                // key={`${message.id}-text-${i}`}
+                              >
+                                {/* All messages displayed */}
+                                <MessageContent>
+                                  <MessageResponse>{part.text}</MessageResponse>
+                                </MessageContent>
+                              </Message>
                               {/* Action toolbar — only show on assistant messages */}
                               {isAssistant && !isCurrentlyStreaming && (
                                 <MessageActions>
                                   <MessageAction
-                                    tooltip="Copy"
                                     onClick={() => handleCopy(part.text)}
                                   >
                                     <CopyIcon size={14} />
                                   </MessageAction>
                                   {isLastMessage && (
-                                    <MessageAction
-                                      tooltip="Retry"
-                                      onClick={handleRetry}
-                                    >
+                                    <MessageAction onClick={handleRetry}>
                                       <RotateCcwIcon size={14} />
                                     </MessageAction>
                                   )}
                                 </MessageActions>
                               )}
-                            </Message>
+                            </Fragment>
                           );
 
                         default:
