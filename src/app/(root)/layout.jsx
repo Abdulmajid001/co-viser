@@ -17,9 +17,11 @@ const layout = async ({ children }) => {
 
   return (
     <div className="flex h-screen overflow-hidden">
-      <ChatSidebar userEmail={email} chats={chats} />
+      <div className="hidden md:block">
+        <ChatSidebar userEmail={email} chats={chats} />
+      </div>
       <main className="flex-1 overflow-scroll">
-        <Header />
+        <Header userEmail={email} chats={chats}  />
         {children}
       </main>
     </div>
