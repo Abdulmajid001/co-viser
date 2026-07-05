@@ -18,7 +18,6 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
 
 export function ModelSelector({
   models,
@@ -41,8 +40,7 @@ export function ModelSelector({
 
   const isFreeModel = (model) => {
     return (
-      model.pricing.prompt === "0" &&
-      model.pricing.completion === "0" 
+      model.pricing.prompt === "0" && model.pricing.completion === "0"
       // model.pricing.request === "0"
     );
   };
@@ -62,29 +60,32 @@ export function ModelSelector({
       model.architecture.modality.toLowerCase().includes(query)
     );
   });
-  
+
   return (
     <>
       {/* Popover: Displays lightweight, contextual content without interrupting the user's workflow. Ideal for quick actions, filters, menus */}
       <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger render={<Button
-            variant="ghost"
-            role="combobox"
-            aria-expanded={open}
-            className={cn(
-              "h-8 justify-between gap-2 px-2 text-xs hover:bg-accent",
-              className
-            )}
-          >
-            <div className="flex items-center gap-1.5 min-w-0">
-              <Sparkles className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
-              <span className="truncate font-medium">
-                {selectedModel?.name || "Select model"}
-              </span>
-            </div>
-            <ChevronDown className="h-3.5 w-3.5 shrink-0 opacity-50" />
-          </Button>}>    
-        </PopoverTrigger>
+        <PopoverTrigger
+          render={
+            <Button
+              variant="ghost"
+              role="combobox"
+              aria-expanded={open}
+              className={cn(
+                "h-8 justify-between gap-2 px-2 text-xs hover:bg-accent",
+                className,
+              )}
+            >
+              <div className="flex items-center gap-1.5 min-w-0">
+                <Sparkles className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
+                <span className="truncate font-medium">
+                  {selectedModel?.name || "Select model"}
+                </span>
+              </div>
+              <ChevronDown className="h-3.5 w-3.5 shrink-0 opacity-50" />
+            </Button>
+          }
+        ></PopoverTrigger>
 
         <PopoverContent className={"w-90 p-0"} align="center">
           <div className="p-3 border-b">
@@ -114,7 +115,7 @@ export function ModelSelector({
                   key={model.id}
                   className={cn(
                     "relative flex cursor-pointer select-none items-start gap-2 rounded-md px-2 py-2 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground",
-                    selectedModelId === model.id && "bg-accent"
+                    selectedModelId === model.id && "bg-accent",
                   )}
                   onClick={() => {
                     onModelSelect(model.id);
@@ -128,7 +129,7 @@ export function ModelSelector({
                         "h-4 w-4",
                         selectedModelId === model.id
                           ? "opacity-100"
-                          : "opacity-0"
+                          : "opacity-0",
                       )}
                     />
                   </div>
@@ -211,7 +212,7 @@ export function ModelSelector({
                       </p>
                       <p className="text-sm font-medium">
                         {formatContextLength(
-                          selectedForDetails.top_provider.max_completion_tokens
+                          selectedForDetails.top_provider.max_completion_tokens,
                         )}{" "}
                         tokens
                       </p>
@@ -221,7 +222,7 @@ export function ModelSelector({
                       <p className="text-sm font-medium capitalize">
                         {selectedForDetails.architecture.modality.replace(
                           "->",
-                          " → "
+                          " → ",
                         )}
                       </p>
                     </div>
@@ -233,121 +234,7 @@ export function ModelSelector({
                     </div>
                   </div>
                 </div>
-
                 <Separator />
-
-                {/* Input/Output Modalities */}
-                <div>
-                  <h3 className="text-sm font-semibold mb-3">
-                    Supported Modalities
-                  </h3>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <p className="text-xs text-muted-foreground">
-                        Input Modalities
-                      </p>
-                      <div className="flex flex-wrap gap-1">
-                        {selectedForDetails?.architecture.input_modalities?.map(
-                          (modality) => (
-                            <Badge
-                              key={modality}
-                              variant="outline"
-                              className="text-xs"
-                            >
-                              {modality}
-                            </Badge>
-                          )
-                        )}
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <p className="text-xs text-muted-foreground">
-                        Output Modalities
-                      </p>
-                      <div className="flex flex-wrap gap-1">
-                        {selectedForDetails?.architecture.output_modalities.map(
-                          (modality) => (
-                            <Badge
-                              key={modality}
-                              variant="outline"
-                              className="text-xs"
-                            >
-                              {modality}
-                            </Badge>
-                          )
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <Separator />
-
-                {/* Pricing */}
-                <div>
-                  <h3 className="text-sm font-semibold mb-3">Pricing</h3>
-                  {isFreeModel(selectedForDetails) ? (
-                    <div className="flex items-center gap-2 p-3 rounded-lg bg-green-500/10 border border-green-500/20">
-                      <Badge variant="secondary" className="bg-green-500/20">
-                        FREE
-                      </Badge>
-                      <p className="text-sm text-muted-foreground">
-                        This model is completely free to use
-                      </p>
-                    </div>
-                  ) : (
-                    <div className="grid grid-cols-2 gap-3">
-                      {Object.entries(selectedForDetails?.pricing).map(
-                        ([key, value]) => {
-                          if (value === "0") return null;
-                          return (
-                            <div key={key} className="space-y-1">
-                              <p className="text-xs text-muted-foreground capitalize">
-                                {key.replace("_", " ")}
-                              </p>
-                              <p className="text-sm font-medium">${value}</p>
-                            </div>
-                          );
-                        }
-                      )}
-                    </div>
-                  )}
-                </div>
-
-                <Separator />
-
-                {/* Provider Info */}
-                <div>
-                  <h3 className="text-sm font-semibold mb-3">
-                    Provider Information
-                  </h3>
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-muted-foreground">
-                        Content Moderation
-                      </span>
-                      <Badge
-                        variant={
-                          selectedForDetails.top_provider.is_moderated
-                            ? "default"
-                            : "secondary"
-                        }
-                      >
-                        {selectedForDetails.top_provider.is_moderated
-                          ? "Enabled"
-                          : "Disabled"}
-                      </Badge>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Model ID */}
-                <div>
-                  <h3 className="text-sm font-semibold mb-2">Model ID</h3>
-                  <code className="text-xs bg-muted px-2 py-1 rounded block break-all">
-                    {selectedForDetails.id}
-                  </code>
-                </div>
               </div>
             )}
           </ScrollArea>

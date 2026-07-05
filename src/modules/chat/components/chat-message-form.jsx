@@ -4,21 +4,20 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Send } from "lucide-react";
 import { useEffect, useState } from "react";
-// import { ModelSelector } from "./model-selector";
 import { Spinner } from "@/components/ui/spinner";
 import { ModelSelector } from "./model-selector";
 import { useAIModels } from "@/modules/hooks/use-ai-agent";
-// import { useCreateChat } from "../hooks/use-chat";
+import { useCreateChat } from "@/modules/hooks/use-chat";
+import { toast } from "sonner";
 // import { toast } from "sonner";
 // import { createChatWithMessage } from "../actions/action";
-// import { toast } from "sonner";
 
 const ChatMessageForm = ({ initialMessage, onMessageChange, firstName }) => {
   const [selectedModel, setSelectedModel] = useState("");
   const [message, setMessage] = useState("");
 
-  // const { mutateAsync, isPending: isChatPending } = useCreateChat();
-  const { data: models, isPending } = useAIModels();
+  const { mutateAsync, isPending: isChatPending } = useCreateChat();
+  const { data: models, isPending: isModelsPending } = useAIModels();
 
   // Set the first available AI model as the default once the models have finished loading
   useEffect(() => {
@@ -27,35 +26,31 @@ const ChatMessageForm = ({ initialMessage, onMessageChange, firstName }) => {
     }
   }, [models]);
 
-  // console.log("Selected Model:", selectedModel);
-  // console.log("Available Models:", models);
-
-  // useEffect(() => {
-  //   if (initialMessage) {
-  //     setMessage(initialMessage);
-  //     onMessageChange?.("");
-  //   }
-  // }, [initialMessage, onMessageChange]);
+  useEffect(() => {
+    if (initialMessage) {
+      setMessage(initialMessage);
+      onMessageChange?.("");
+    }
+  }, [initialMessage, onMessageChange]);
 
   const handleSubmit = async (e) => {
-  //   try {
-  //     e.preventDefault();
-  //     await mutateAsync({ content: message, model: selectedModel });
-  //     toast.success("Message sent successfully");
-  //   } catch (error) {
-  //     console.error("Error sending message:", error);
-  //     toast.error("Failed to send message");
-  //   } finally {
-  //     setMessage("");
-  //   }
+    try {
+      e.preventDefault();
+      await mutateAsync({ content: message, model: selectedModel });
+      // toast.success("Message sent successfully");
+    } catch (error) {
+      console.error("Error sending message:", error);
+      // toast.error("Failed to send message");
+    } finally {
+      setMessage("");
+    }
   };
 
   return (
-    <div className="w-full max-w-3xl mx-auto px-4 pb-2">
-        <h1 className="text-4xl font-semibold pb-8 text-center">
-          How can i help you ,{" "}
-          {firstName}
-        </h1>
+    <div className="w-full mx-auto px-4 pb-2">
+      <h1 className="text-4xl font-semibold pb-8 text-center">
+        How can i help you , {firstName}
+      </h1>
       <form onSubmit={handleSubmit}>
         <div
           className="relative rounded-2xl border-border shadow-sm transition-all bg-primary/5
@@ -65,7 +60,7 @@ const ChatMessageForm = ({ initialMessage, onMessageChange, firstName }) => {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="How can I help you today?"
-            className="min-h-[90px] max-h-[300px] resize-none border-0 px-4 py-3 text-base focus-visible:ring-0 focus-visible:ring-offset-0 "
+            className="min-h-22.5 max-h-75 resize-none border-0 px-4 py-3 text-base focus-visible:ring-0 focus-visible:ring-offset-0 "
             onKeyDown={(e) => {
               if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();
@@ -77,7 +72,7 @@ const ChatMessageForm = ({ initialMessage, onMessageChange, firstName }) => {
           <div className="flex items-center justify-between gap-2 px-3 py-2">
             {/* Model Selector */}
             <div className="flex items-center gap-1">
-              {false ? (
+              {isModelsPending ? (
                 <>
                   <Spinner />
                 </>
@@ -86,7 +81,7 @@ const ChatMessageForm = ({ initialMessage, onMessageChange, firstName }) => {
                   <ModelSelector
                     models={models?.models}
                     selectedModelId={selectedModel}
-                    // onModelSelect={setSelectedModel}
+                    onModelSelect={setSelectedModel}
                     className="ml-1"
                   />
                 </>
@@ -99,7 +94,7 @@ const ChatMessageForm = ({ initialMessage, onMessageChange, firstName }) => {
               variant={message.trim() ? "default" : "ghost"}
               className="h-8 w-8 p-0 rounded-full"
             >
-              {false ? (
+              {isChatPending ? (
                 <>
                   <Spinner />
                 </>

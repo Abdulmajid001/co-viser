@@ -6,6 +6,7 @@ import { currentUser } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 
 export const createChatWithMessage = async (values) => {
+  console.log("createChatWithMessage called with values:", values);
   try {
     const user = await currentUser();
 

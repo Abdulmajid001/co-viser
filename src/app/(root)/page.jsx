@@ -7,7 +7,7 @@ export default async function Home() {
   const user = await currentUser();
 
   return (
-    <div className="flex h-screen flex-col items-center justify-center space-y-4 overflow-y-scroll">
+    <div className="max-w-2xl mx-auto px-4 py-8">
       <ChatMessageView firstName={user.firstName} />
     </div>
   );
