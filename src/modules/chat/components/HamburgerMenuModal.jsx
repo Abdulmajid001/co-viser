@@ -32,7 +32,7 @@ export default function HamburgerMenuModal({ userEmail, chats, open, onClose }) 
           </Button>
         </div>
 
-        <div className="bg-red-500 h-[calc(100%-3.5rem)] overflow-y-auto">
+        <div className="h-[calc(100%-3.5rem)] overflow-y-auto">
           <ChatSidebar userEmail={userEmail} chats={chats} onClose={onClose} />
         </div>
       </aside>
