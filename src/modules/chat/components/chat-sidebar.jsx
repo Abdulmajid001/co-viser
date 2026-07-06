@@ -20,7 +20,7 @@ import {
 import { cn } from "@/lib/utils";
 import DeleteChatModal from "./chat-delete-modal";
 
-const ChatSidebar = ({ userEmail, chats }) => {
+const ChatSidebar = ({ userEmail, chats, onClose }) => {
   const { activeChatId } = useChatStore();
   const [isModalOpen, setIsModelOpen] = useState(false);
   const [selectedChatId, setSelectedChatId] = useState(null);
@@ -106,6 +106,7 @@ const ChatSidebar = ({ userEmail, chats }) => {
             "block rounded-lg px-3 py-2 text-sm text-sidebar-foreground hover:bg-sidebar-accent transition-colors",
             chat.id === activeChatId && "bg-sidebar-accent",
           )}
+          onClick={onClose}
         >
           <div className="flex felx-row justify-between items-center gap-2">
             <span className="truncate flex-1">{chat.title}</span>

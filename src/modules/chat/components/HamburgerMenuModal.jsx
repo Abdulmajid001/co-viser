@@ -13,13 +13,10 @@ export default function HamburgerMenuModal({ userEmail, chats, open, onClose }) 
           : "pointer-events-none opacity-0"
       } transition-opacity duration-300`}
     >
-      <div
-        className="absolute inset-0 bg-black/30 backdrop-blur-sm"
-        onClick={onClose}
-      />
+      <div className="absolute inset-0" onClick={onClose} />
 
       <aside
-        className={`relative z-10 h-full w-[min(85vw,22rem)] bg-sidebar border-r border-border shadow-2xl transition-transform duration-300 ease-out ${
+        className={`relative z-10 h-full bg-sidebar shadow-2xl transition-transform duration-300 ease-out ${
           open ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -35,8 +32,8 @@ export default function HamburgerMenuModal({ userEmail, chats, open, onClose }) 
           </Button>
         </div>
 
-        <div className="h-[calc(100%-3.5rem)] overflow-y-auto">
-          <ChatSidebar userEmail={userEmail} chats={chats} />
+        <div className="bg-red-500 h-[calc(100%-3.5rem)] overflow-y-auto">
+          <ChatSidebar userEmail={userEmail} chats={chats} onClose={onClose} />
         </div>
       </aside>
     </div>
