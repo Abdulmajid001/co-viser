@@ -17,7 +17,7 @@ const layout = async ({ children }) => {
       <div className="hidden md:block">
         <ChatSidebar userEmail={email} chats={chats} />
       </div>
-      <main className="flex-1">
+      <main className="flex-1 sm:overflow-y-visible">
         <Header userEmail={email} chats={chats} />
         {children}
       </main>
