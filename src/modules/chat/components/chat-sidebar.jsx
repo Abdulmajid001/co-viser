@@ -176,7 +176,7 @@ const ChatSidebar = ({ userEmail, chats, onClose }) => {
 
       <div className="p-4">
         <Link href={"/"}>
-          <Button className={"w-full"}>
+          <Button className={"w-full"} onClick={onClose}>
             <PlusIcon className="mr-2 h-4 w-4" />
             New Chat
           </Button>

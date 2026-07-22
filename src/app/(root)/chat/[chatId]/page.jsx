@@ -6,7 +6,6 @@ const Page = async ({ params }) => {
   return (
     <>
       <ActiveChatLoader chatId={chatId} />
-      {/* <div>chatId={chatId} </div> */}
       <MessageWithForm chatId={chatId} />
     </>
   );
