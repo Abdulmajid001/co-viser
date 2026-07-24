@@ -20,7 +20,7 @@ export default function HamburgerMenuModal({ userEmail, chats, open, onClose }) 
           open ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="flex items-center justify-between border-b border-border px-4 py-3">
+        <div className="flex items-center justify-between border-b border-border px-4 py-2.5 md:py-3">
           <Button
             type="button"
             variant="ghost"

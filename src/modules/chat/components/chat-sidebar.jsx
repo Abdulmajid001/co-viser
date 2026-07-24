@@ -158,7 +158,12 @@ const ChatSidebar = ({ userEmail, chats, onClose }) => {
     <div className="flex flex-col h-full w-64 border-r border-border bg-sidebar">
       <div className="flex items-center justify-center px-4 py-0.5">
         <div className="hidden md:flex items-center gap-2">
-          <Image src={"/Logo2.png"} alt="Logo" width={150} height={100} />
+          <Image
+            src={"/co-viser-logo.png"}
+            alt="Logo"
+            width={150}
+            height={100}
+          />
         </div>
       </div>
 
@@ -176,7 +181,7 @@ const ChatSidebar = ({ userEmail, chats, onClose }) => {
 
       <div className="p-4">
         <Link href={"/"}>
-          <Button className={"w-full"} onClick={onClose}>
+          <Button variant={"outline"} className={"w-full"} onClick={onClose}>
             <PlusIcon className="mr-2 h-4 w-4" />
             New Chat
           </Button>
