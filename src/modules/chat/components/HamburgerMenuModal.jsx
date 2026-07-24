@@ -20,7 +20,7 @@ export default function HamburgerMenuModal({ userEmail, chats, open, onClose }) 
           open ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="flex items-center justify-between border-b border-border px-4 py-2.5 md:py-3">
+        {/* <div className="flex items-center justify-between border-b border-border px-4 py-2.5 md:py-3">
           <Button
             type="button"
             variant="ghost"
@@ -30,9 +30,10 @@ export default function HamburgerMenuModal({ userEmail, chats, open, onClose }) 
           >
             <X className="h-4 w-4" />
           </Button>
-        </div>
+        </div> */}
 
-        <div className="h-[calc(100%-3.5rem)] overflow-y-auto">
+        {/* <div className="h-[calc(100%-3.5rem)] overflow-y-auto"> */}
+        <div className="h-[calc(100%)] overflow-y-auto">
           <ChatSidebar userEmail={userEmail} chats={chats} onClose={onClose} />
         </div>
       </aside>

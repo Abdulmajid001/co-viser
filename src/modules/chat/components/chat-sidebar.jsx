@@ -157,7 +157,7 @@ const ChatSidebar = ({ userEmail, chats, onClose }) => {
   return (
     <div className="flex flex-col h-full w-64 border-r border-border bg-sidebar">
       <div className="flex items-center justify-center px-4 py-0.5">
-        <div className="hidden md:flex items-center gap-2">
+        <div className="hidden md:flex items-center py-2 gap-2">
           <Image
             src={"/co-viser-logo.png"}
             alt="Logo"
